@@ -13,15 +13,12 @@ public class Gmail extends AbstractEmail {
         try {
             Transport tr = session.getTransport("smtp");
             tr.connect();
+            tr.close();
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
             return false;
         } catch (MessagingException e) {
-            if (e.getMessage().contains("534-5.7.14")) {
-                return true;
-            } else {
-                return false;
-            }
+            return e.getMessage().contains("534-5.7.14");
         }
         return true;
     }

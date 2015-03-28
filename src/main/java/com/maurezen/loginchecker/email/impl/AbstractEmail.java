@@ -16,6 +16,7 @@ public abstract class AbstractEmail implements Email {
         try {
             Transport tr = session.getTransport("smtp");
             tr.connect();
+            tr.close();
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
             return false;
