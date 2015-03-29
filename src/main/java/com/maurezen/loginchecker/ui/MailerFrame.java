@@ -44,7 +44,7 @@ public class MailerFrame extends JFrame {
             e -> {
                 sendButton.setEnabled(false);
 
-                good.setText(checkCredentials(toBeTested.getText(), 1000));
+                good.setText(checkCredentials(toBeTested.getText()));
 
                 sendButton.setEnabled(true);
             }
@@ -60,7 +60,7 @@ public class MailerFrame extends JFrame {
         pack();
     }
 
-    private String checkCredentials(String text, int i) {
+    private String checkCredentials(String text) {
         Scanner scanner = new Scanner(text);
         scanner.useDelimiter("(,|\\Z|\\t|\\n|\\r| )");
 
@@ -77,7 +77,7 @@ public class MailerFrame extends JFrame {
                 String username = login.substring(0, login.indexOf('@'));
                 String password = credentials.substring(index + 1);
 
-                Email email = EmailService.create(login);
+                Email email = EmailService.get(login);
                 Session session = email.login(username, password);
 
                 if (email.test(session)) {
